@@ -20,7 +20,7 @@ return array(
 	'homeUrl' => '/',
 	'timeZone'=>"Europe/Moscow",
 	'defaultController' => "Index",
-	'layout' => "index",
+	'layout' => "main",
 
 	// preloading 'log' component
 	'preload'=>array('log'),
