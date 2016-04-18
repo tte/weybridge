@@ -29,6 +29,7 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'application.components.providers.*',
 	),
 
 	'modules'=>array(),
@@ -53,6 +54,15 @@ return array(
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>YII_DEBUG ? null : 'site/error',
+		),
+
+		'CURL' => array(
+			'class' => 'ext.curl.Curl',
+			'options'=>array(
+				'setOptions'=>array(
+					CURLOPT_SSL_VERIFYPEER => false,
+				),
+			),
 		),
 
 		'log'=>array(

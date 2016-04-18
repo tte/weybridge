@@ -7,3 +7,4 @@ protected/runtime/*
 protected/vendor/*
 !protected/vendor/.gitignore
 protected/config/secure.php
+protected/controllers/DebugController.php
