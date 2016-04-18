@@ -1,0 +1,17 @@
+{
+    "name": "tte/weybridge",
+    "require": {
+        "yiisoft/yii": "~1.1"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "tte",
+            "email": "kuuu1010100@gmail.com"
+        }
+    ],
+    "config": {
+      "vendor-dir": "protected/vendor",
+      "bin-dir": "protected"
+    }
+}

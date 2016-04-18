@@ -1,0 +1,9 @@
+.DS_Store
+composer.lock
+assets/*
+!assets/.gitignore
+protected/runtime/*
+!protected/runtime/.gitignore
+protected/vendor/*
+!protected/vendor/.gitignore
+protected/config/secure.php
