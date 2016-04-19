@@ -53,6 +53,7 @@
 
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/static/bower_components/jquery/dist/jquery.min.js"></script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="<?php echo Yii::app()->request->baseUrl; ?>/static/app/build/bundle.js"></script>
 
 </body>
 </html>

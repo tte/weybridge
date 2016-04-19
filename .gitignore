@@ -12,3 +12,4 @@ protected/config/secure.php
 protected/controllers/DebugController.php
 
 static/bower_components/*
+node_modules/*
