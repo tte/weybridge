@@ -3,6 +3,7 @@
 
 class YahooRateProvider implements IExchangeRateProvider {
 
+	public $type = 'yahoo';
 	private $_currencies;
 	private $_currency = 'RUB'; // to const
 
@@ -10,7 +11,7 @@ class YahooRateProvider implements IExchangeRateProvider {
 		$this->setCurrencies($currencies);
 		$data = $this->_validateResponse($this->fetch());
 
-		return $data;
+		return $this->adapter($data);
 	}
 
 	public function setCurrencies($currencies) {
@@ -21,10 +22,6 @@ class YahooRateProvider implements IExchangeRateProvider {
 			throw new YahooRateProviderException('Не верный формат кодов валют');
 
 		$this->_currencies = $currencies;
-	}
-
-	public function getCurrencies() {
-		return $this->_currencies;
 	}
 
 	public function fetch() {
@@ -57,6 +54,24 @@ class YahooRateProvider implements IExchangeRateProvider {
 			throw new YahooRateProviderException('Не верный формат ответа');
 
 		return $data['query']['results']['rate'];
+	}
+
+	protected function adapter($data) {
+		if(isset($data['id'])) $data = [$data];
+
+		return array_map(function($item) {
+			return [
+				'currency' => isset($item['id'])
+					? preg_replace(sprintf("/()%s/", $this->_currency), '', $item['id'])
+					: NULL,
+				'rate' => isset($item['Rate']) ? $item['Rate'] : NULL,
+				'provider' => $this->type
+			];
+		}, $data);
+	}
+
+	public function getCurrencies() {
+		return $this->_currencies;
 	}
 }
 

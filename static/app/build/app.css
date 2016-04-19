@@ -1,7 +1,13 @@
 body {
-    padding-top: 50px;
+  padding-top: 50px;
 }
 .starter-template {
-    padding: 40px 15px;
-    text-align: center;
+  padding: 40px 15px;
+  text-align: center;
+}
+
+.provider-item {
+  float: left;
+  padding: 20px;
+  min-width: 300px;
 }

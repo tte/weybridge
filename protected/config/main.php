@@ -29,7 +29,10 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'application.components.helpers.*',
 		'application.components.providers.*',
+		'application.components.services.*',
+		'application.components.system.*'
 	),
 
 	'modules'=>array(),
@@ -49,7 +52,7 @@ return array(
 		),
 
 		// database settings are configured in database.php
-		'db'=>require(dirname(__FILE__).'/database.php'),
+		'db' => $db,
 
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors

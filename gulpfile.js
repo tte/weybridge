@@ -12,7 +12,7 @@ var gulp = require('gulp'),
 
 gulp.task('js', function() {
     return browserify('./static/app/src/js/app.js', {debug: process.env.NODE_ENV != 'production'})
-        .transform(babelify, {presets: ['es2015']})
+        .transform(babelify, {plugins: ["transform-react-jsx"], presets: ['es2015']})
         .transform(envify({
           NODE_ENV: process.env.NODE_ENV
         }))

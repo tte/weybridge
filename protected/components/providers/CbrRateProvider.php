@@ -3,13 +3,14 @@
 
 class CbrRateProvider implements IExchangeRateProvider {
 
+	public $type = 'cbr';
 	private $_currencies;
 
 	public function getRateValues($currencies = 'USD, EUR') {
 		$this->setCurrencies($currencies);
 		$data = $this->_validateResponse($this->fetch());
 
-		return $this->_adapter($data);
+		return $this->adapter($data);
 	}
 
 	public function setCurrencies($currencies) {
@@ -20,10 +21,6 @@ class CbrRateProvider implements IExchangeRateProvider {
 			throw new CbrRateProviderException('Не верный формат кодов валют');
 
 		$this->_currencies = $currencies;
-	}
-
-	public function getCurrencies() {
-		return $this->_currencies;
 	}
 
 	public function fetch() {
@@ -50,15 +47,24 @@ class CbrRateProvider implements IExchangeRateProvider {
 		return $data['Valute'];
 	}
 
-	private function _adapter($data) { // protected
-		$data = $this->_filterResponse($data);
-		return $data;
+	protected function adapter($data) {
+		return array_map(function($item) {
+			return [
+				'currency' => isset($item['CharCode']) ? $item['CharCode'] : NULL,
+				'rate' => isset($item['Value']) ? (float)preg_replace('/(,)/', '.', $item['Value']) : NULL,
+				'provider' => $this->type
+			];
+		}, $this->_filterResponse($data));
 	}
 
 	private function _filterResponse($data) {
 		return array_filter($data, function($item) {
 			return in_array($item['CharCode'], $this->_currencies);
 		});
+	}
+
+	public function getCurrencies() {
+		return $this->_currencies;
 	}
 }
 
