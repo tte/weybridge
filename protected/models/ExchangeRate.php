@@ -6,7 +6,7 @@
  * @property string $currency
  * @property float $rate
  */
-class ExchangeRate extends CActiveRecord {
+class ExchangeRate extends ActiveRecord {
 
 	/**
 	 * @param string $className

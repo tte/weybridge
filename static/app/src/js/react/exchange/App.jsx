@@ -1,5 +1,7 @@
 export const ExchangeRate = React.createClass({
 
+  _interval: 3000,
+
   getInitialState: function() {
     return this.props;
   },
@@ -9,25 +11,39 @@ export const ExchangeRate = React.createClass({
   },
 
   polling: function polling() {
-    console.log('polling');
     $.ajax({
       url: '/',
       success: (data) => {
-        console.log(data);
-
         if(data.items) this.setState({ items: data.items });
-        setTimeout(this.polling, 3000);
+        setTimeout(this.polling, this._interval);
       },
       dataType: 'json',
     });
   },
 
-  render: function() {
-    let items = this.state.items.map((item, i) => <ExchangeRateItem key={i} {...item} />);
+  getGroupItems: function() {
+    let sorted = this.state.items.reduce((result, item) => {
+      result[item.currency] = result[item.currency] || [];
+      result[item.currency].push(item);
+      return result;
+    }, {});
 
+    return Object.keys(sorted).map((key) => {
+        return (
+          <div className="row">
+            <div className="col-sm-6 col-md-4 provider-item provider-item--currency">
+              <h1>{ key }</h1>
+            </div>
+            { sorted[key].map((item, i) => <ExchangeRateItem key={i} {...item} />) }
+          </div>
+        );
+    });
+  },
+
+  render: function() {
     return (
       <div className="row">
-        { items }
+        { this.getGroupItems() }
       </div>
     );
   }
@@ -38,10 +54,11 @@ export const ExchangeRateItem = React.createClass({
     return (
       <div className="col-sm-6 col-md-4 provider-item">
         <div className="thumbnail">
+          <span className="label label-info">{ this.props.provider.toUpperCase() }</span>
           <div className="caption">
             <h1>{ this.props.rate }</h1>
           </div>
-          <p>{ this.props.provider }</p>
+          <p>{ this.props.date_create }</p>
         </div>
       </div>
     );

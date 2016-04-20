@@ -1,5 +1,7 @@
 <?php
-/* @var $this SiteController */
+/* @var $this SiteController
+ * @var $items []
+ * */
 
 $this->pageTitle=Yii::app()->name;
 ?>

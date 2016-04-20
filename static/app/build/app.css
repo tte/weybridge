@@ -1,13 +1,15 @@
 body {
   padding-top: 50px;
 }
-.starter-template {
-  padding: 40px 15px;
-  text-align: center;
-}
 
 .provider-item {
   float: left;
   padding: 20px;
-  min-width: 300px;
+  min-width: 100px;
+  text-align: center;
+}
+
+.provider-item--currency {
+  padding: 50px;
+  min-width: 40px;
 }
