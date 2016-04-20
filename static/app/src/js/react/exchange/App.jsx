@@ -15,8 +15,8 @@ export const ExchangeRate = React.createClass({
       url: '/',
       success: (data) => {
         if(data.items) this.setState({ items: data.items });
-        setTimeout(this.polling, this._interval);
       },
+      complete: () => setTimeout(this.polling, this._interval),
       dataType: 'json',
     });
   },
