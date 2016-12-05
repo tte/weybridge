@@ -28,4 +28,13 @@ class ExchangeRateService implements IExchangeRateProvider {
 		}
 	}
 
+	public static function getLastCurrencies() {
+		$sql = 'SELECT t.*
+			FROM exchange_rate t
+			LEFT JOIN exchange_rate er ON er.provider = t.provider AND er.currency = t.currency AND er.id > t.id
+			WHERE er.id IS NULL';
+
+		return Yii::app()->db->createCommand($sql)->queryAll();
+	}
+
 }

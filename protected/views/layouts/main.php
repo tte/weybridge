@@ -32,7 +32,6 @@
 
 	</div>
 
-	<script src="<?php echo Yii::app()->request->baseUrl; ?>/static/bower_components/jquery/dist/jquery.min.js"></script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/static/bower_components/react/react.min.js"></script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/static/bower_components/react/react-dom.min.js"></script>

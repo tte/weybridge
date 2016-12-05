@@ -1,6 +1,7 @@
 export const ExchangeRate = React.createClass({
 
   _interval: 3000,
+  _timeoutId: null,
 
   getInitialState: function() {
     return this.props;
@@ -10,15 +11,23 @@ export const ExchangeRate = React.createClass({
     this.polling();
   },
 
+  componentWillUnmount() {
+    clearInterval(this._timeoutId);
+  },
+
+  componentDidUpdate() {
+    this._timeoutId = setTimeout(this.polling, this._interval);
+  },
+
   polling: function polling() {
-    $.ajax({
-      url: '/',
-      success: (data) => {
-        if(data.items) this.setState({ items: data.items });
-      },
-      complete: () => setTimeout(this.polling, this._interval),
-      dataType: 'json',
-    });
+    const cb = function(payload) {
+      if(payload.items) this.setState({ items: payload.items });
+    }
+    
+    fetch('/', { headers: {'X-Requested-With': 'XMLHttpRequest'} })
+    .then(res => res.json())
+    .then(cb.bind(this))
+    .catch(err => console.log(err))
   },
 
   getGroupItems: function() {
